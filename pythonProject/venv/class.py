@@ -1,60 +1,61 @@
-class Post:
-    # 게시글 클래스
-    def __init__(self, date, content):
-        # 게시글은 속성으로 작성 날짜와 내용을 갖는다
-        self.date = date
-        self.content = content
+class Clock:
+    # 1시 30분 48초인 시계 인스턴스 생성
+    def __init__(self, hour, minute, second):
+        self.hour = hour
+        self.minute = minute
+        self.second = second
 
+    # 13초를 늘린다, 그리고 변환한다.
+    def tick(self):
+        self.second += 1
+        if self.second >= 60:
+            self.second = 0
+            self.minute += 1
+        elif self.minute >= 60:
+            self.minute = 0
+            self.hour += 1
+        elif self.hour >= 24:
+            self.hour = 0
+
+    # 시계의 현재 시간 출력
     def __str__(self):
-        # 게시글의 정보를 문자열로 리턴하는 메소드
-        return "작성 날짜: {}\n내용: {}".format(self.date, self.content)
+        self.second = str(self.second).zfill(2)
+        self.minute = str(self.minute).zfill(2)
+        self.hour = str(self.hour).zfill(2)
+        return "{}:{}:{}".format(self.hour, self.minute, self.second)
 
+    # 2시 3분 58초로 시계 세팅
+    def set(self, hour, minute, second):
+        self.hour = hour
+        self.minute = minute
+        self.second = second
 
-class BlogUser:
-    # 블로그 유저 클래스
-    def __init__(self, name):
-        """
-        블로그 유저는 속성으로 이름, 게시글들을 갖는다
-        posts는 빈 배열로 초기화한다
-        """
-        self.name = name
-        self.posts = []
+# 1시 30분 48초인 시계 인스턴스 생성
+clock = Clock(1, 30, 48)
 
-    def add_post(self, date, content):
-        new_post = Post(date, content)
-        self.posts.append(new_post)
-    # 새로운 게시글 추가
+# 13초를 늘린다
+for i in range(13):
+    clock.tick()
 
-    def show_all_posts(self):
-        for post in self.posts:
-            print(post)
+# 시계의 현재 시간 출력
+print(clock)
 
-    # 블로그 유저의 모든 게시글 출력
+# 2시 3분 58초로 시계 세팅
+clock.set(2, 3, 58)
 
-    def __str__(self):
-        return "안녕하세요 {}입니다.".format(self.name)
+# 5초를 늘린다
+for i in range(5):
+    clock.tick()
 
-# 간단한 인사와 이름을 문자열로 리턴
+# 시계의 현재 시간 출력
+print(clock)
 
+# 23시 59분 57초로 세팅
+clock.set(23, 59, 57)
 
-# 블로그 유저 인스턴스 생성
-blog_user_1 = BlogUser("성태호")
+# 5초를 늘린다
+for i in range(5):
+    clock.tick()
 
-# 블로그 유저 인스턴스 출력(인사, 이름)
-print(blog_user_1)
-
-# 블로그 유저 게시글 2개 추가
-blog_user_1.add_post("2019년 8월 30일", """
-오늘은 내 생일이였다.
-많은 사람들이 축하해줬다.
-행복했다.
-""")
-
-blog_user_1.add_post("2019년 8월 31일", """
-재밌는 코딩 교육 사이트를 찾았다.
-코드잇이란 곳인데 최고다.
-같이 공부하실 분들은 www.codeit.kr로 오세요!
-""")
-
-# 블로그 유저의 모든 게시글 출력
-blog_user_1.show_all_posts()
+# 시계의 현재 시간 출력
+print(clock)
